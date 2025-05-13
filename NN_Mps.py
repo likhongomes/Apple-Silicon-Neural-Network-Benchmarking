@@ -3,6 +3,7 @@ import torch.nn as nn
 import torch.optim as optim
 import time
 import matplotlib.pyplot as plt
+import DataLoader
 
 # Generate synthetic data for classification
 X = torch.randn(100, 100)  # 10,000 samples, 100 features
@@ -11,6 +12,7 @@ y = (torch.rand(100) > 0.5).long()  # Binary classification labels (0 or 1)
 gpu_results = []
 cpu_results = []
 output = []
+output2 = []
 
 # Define a simple neural network model
 class SimpleNN(nn.Module):
@@ -88,20 +90,41 @@ def run_on_gpu(X, y, epoch):
 
 epochs = []
 
-for epoch in [100, 1000, 10000, 100000, 1000000]:
-    epochs.append(epoch)
-    output.append([epoch, run_on_cpu(X, y, epoch)])
-    output.append([epoch, run_on_gpu(X, y, epoch)])
+# for epoch in [10, 100, 1000, 10000, 100000, 1000000]:
+#     epochs.append(epoch)
+#     output.append([epoch, run_on_cpu(X, y, epoch)])
+#     output.append([epoch, run_on_gpu(X, y, epoch)])
+
+# # Plotting
+# plt.figure(figsize=(8, 5))
+# plt.plot(epochs, gpu_results, marker='o', linestyle='-', label='GPU', color='blue')
+# plt.plot(epochs, cpu_results, marker='o', linestyle='-', label='CPU', color='orange')
+# plt.xlabel('Number of Epochs')
+# plt.ylabel('Time (seconds)')
+# plt.title('Training Time vs Epochs (Two Runs)')
+# plt.grid(True)
+# plt.legend()
+# plt.tight_layout()
+# # plt.show()
+# plt.savefig("output.png")
+
+
+for dataCount in [100, 1000, 10000, 100000, 1000000]:
+    # Generate synthetic data for classification
+    X = torch.randn(dataCount, 100)  # 10,000 samples, 100 features
+    y = (torch.rand(dataCount) > 0.5).long()  # Binary classification labels (0 or 1)
+    output2.append([epoch, run_on_cpu(X, y, epoch)])
+    output2.append([epoch, run_on_gpu(X, y, epoch)])
 
 # Plotting
 plt.figure(figsize=(8, 5))
-plt.plot(epochs, gpu_results, marker='o', linestyle='-', label='GPU', color='blue')
-plt.plot(epochs, cpu_results, marker='o', linestyle='-', label='CPU', color='orange')
-plt.xlabel('Number of Epochs')
+plt.plot(epochs, gpu_results, marker='o', linestyle='-', label='GPU', color='green')
+plt.plot(epochs, cpu_results, marker='o', linestyle='-', label='CPU', color='red')
+plt.xlabel('Amount of Data')
 plt.ylabel('Time (seconds)')
-plt.title('Training Time vs Epochs (Two Runs)')
+plt.title('Training Time vs Data (Two Runs)')
 plt.grid(True)
 plt.legend()
 plt.tight_layout()
 # plt.show()
-plt.savefig("output.png")
+plt.savefig("output-data.png")
