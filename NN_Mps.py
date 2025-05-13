@@ -88,7 +88,7 @@ def run_on_gpu(X, y, epoch):
 
 epochs = []
 
-for epoch in [10, 100]:
+for epoch in [100, 1000, 10000, 100000, 1000000]:
     epochs.append(epoch)
     output.append([epoch, run_on_cpu(X, y, epoch)])
     output.append([epoch, run_on_gpu(X, y, epoch)])
