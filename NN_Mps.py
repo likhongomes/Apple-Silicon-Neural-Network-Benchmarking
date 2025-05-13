@@ -114,8 +114,8 @@ for dataCount in [100, 1000, 10000, 100000, 1000000]:
     # Generate synthetic data for classification
     X = torch.randn(dataCount, 100)  # 10,000 samples, 100 features
     y = (torch.rand(dataCount) > 0.5).long()  # Binary classification labels (0 or 1)
-    output2.append([epoch, run_on_cpu(X, y, epoch)])
-    output2.append([epoch, run_on_gpu(X, y, epoch)])
+    output2.append([dataCount, run_on_cpu(X, y, 1000)])
+    output2.append([dataCount, run_on_gpu(X, y, 1000)])
 
 # Plotting
 plt.figure(figsize=(8, 5))
