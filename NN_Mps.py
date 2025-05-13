@@ -3,7 +3,6 @@ import torch.nn as nn
 import torch.optim as optim
 import time
 import matplotlib.pyplot as plt
-import DataLoader
 
 # Generate synthetic data for classification
 X = torch.randn(100, 100)  # 10,000 samples, 100 features
@@ -91,6 +90,7 @@ def run_on_gpu(X, y, epoch):
 epochs = []
 
 # for epoch in [10, 100, 1000, 10000, 100000, 1000000]:
+#     print(f"Running Data Count {epoch}")
 #     epochs.append(epoch)
 #     output.append([epoch, run_on_cpu(X, y, epoch)])
 #     output.append([epoch, run_on_gpu(X, y, epoch)])
@@ -110,6 +110,7 @@ epochs = []
 
 
 for dataCount in [100, 1000, 10000, 100000, 1000000]:
+    print(f"Running Data Count {dataCount}")
     # Generate synthetic data for classification
     X = torch.randn(dataCount, 100)  # 10,000 samples, 100 features
     y = (torch.rand(dataCount) > 0.5).long()  # Binary classification labels (0 or 1)
