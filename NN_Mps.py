@@ -88,6 +88,7 @@ def run_on_gpu(X, y, epoch):
 
 
 epochs = []
+dataCounts = []
 
 # for epoch in [10, 100, 1000, 10000, 100000, 1000000]:
 #     print(f"Running Data Count {epoch}")
@@ -111,6 +112,7 @@ epochs = []
 
 for dataCount in [100, 1000, 10000, 100000, 1000000]:
     print(f"Running Data Count {dataCount}")
+    dataCounts.append(dataCount)
     # Generate synthetic data for classification
     X = torch.randn(dataCount, 100)  # 10,000 samples, 100 features
     y = (torch.rand(dataCount) > 0.5).long()  # Binary classification labels (0 or 1)
@@ -119,8 +121,8 @@ for dataCount in [100, 1000, 10000, 100000, 1000000]:
 
 # Plotting
 plt.figure(figsize=(8, 5))
-plt.plot(epochs, gpu_results, marker='o', linestyle='-', label='GPU', color='green')
-plt.plot(epochs, cpu_results, marker='o', linestyle='-', label='CPU', color='red')
+plt.plot(dataCounts, gpu_results, marker='o', linestyle='-', label='GPU', color='green')
+plt.plot(dataCounts, cpu_results, marker='o', linestyle='-', label='CPU', color='red')
 plt.xlabel('Amount of Data')
 plt.ylabel('Time (seconds)')
 plt.title('Training Time vs Data (Two Runs)')
